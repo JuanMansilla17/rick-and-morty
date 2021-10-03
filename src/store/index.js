@@ -23,6 +23,27 @@ export default createStore({
       } catch (error) {
         console.log(error)
       }
+    },
+    filterByStatus({commit, state}, status){
+      /*crea un nuevo array con todos los elementos que cumplan la 
+      condición implementada por la función dada.*/
+      const results = state.characters.filter((character) => {
+        /*determina si una matriz incluye un determinado elemento, 
+        devuelve true o false según corresponda*/
+        return character.status.includes(status)
+      })
+      commit('setCharactersFilter', results)
+    },
+    filterByName({commit, state}, name) {
+      const formatName = name.toLowerCase()
+      const results = state.characters.filter((character) => {
+        const characterName = character.name.toLowerCase()
+
+        if(characterName.includes(formatName)){
+          return character
+        }
+      })
+      commit('setCharactersFilter', results)
     }
   },
   modules: {
